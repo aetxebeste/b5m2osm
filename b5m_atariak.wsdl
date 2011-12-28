@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://dfgweb/Callejero.wsdl" name="Callejero" targetNamespace="http://dfgweb/Callejero.wsdl">
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:soap11-enc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://dfgweb/Callejero.wsdl" elementFormDefault="qualified">
+            <complexType name="buscarcallejero">
+                <sequence>
+                    <element name="lengua" type="string" nillable="true"/>
+                    <element name="tipo" type="string" nillable="true"/>
+                    <element name="muni" type="string" nillable="true"/>
+                    <element name="codmuni" type="string" nillable="true"/>
+                    <element name="calle" type="string" nillable="true"/>
+                    <element name="codcalle" type="string" nillable="true"/>
+                    <element name="numero" type="string" nillable="true"/>
+                    <element name="bis" type="string" nillable="true"/>
+                    <element name="nomedif" type="string" nillable="true"/>
+                    <element name="codpostal" type="string" nillable="true"/>
+                    <element name="distrito" type="string" nillable="true"/>
+                    <element name="seccion" type="string" nillable="true"/>
+                </sequence>
+            </complexType>
+            <complexType name="buscarcallejeroResponse">
+                <sequence>
+                    <element name="result" type="tns:CallejeroUser_buscarcallejero_Out" nillable="true"/>
+                </sequence>
+            </complexType>
+            <complexType name="CallejeroUser_buscarcallejero_Out">
+                <sequence>
+                    <element name="return" type="tns:WsreplyUser" nillable="true"/>
+                    <element name="objectOut" type="tns:WscallobjUser" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </complexType>
+            <complexType name="WsreplyUser">
+                <sequence>
+                    <element name="wsmessage" type="string" nillable="true"/>
+                    <element name="wsstatus" type="decimal" nillable="true"/>
+                </sequence>
+            </complexType>
+            <complexType name="WscallobjUser">
+                <sequence>
+                    <element name="y1Ed50utm" type="decimal" nillable="true"/>
+                    <element name="url3d" type="string" nillable="true"/>
+                    <element name="x1Ed50utm" type="decimal" nillable="true"/>
+                    <element name="urlInfo" type="string" nillable="true"/>
+                    <element name="YEd50utm" type="decimal" nillable="true"/>
+                    <element name="x2Ed50utm" type="decimal" nillable="true"/>
+                    <element name="lonWgs84" type="decimal" nillable="true"/>
+                    <element name="urlOrto" type="string" nillable="true"/>
+                    <element name="codmuni" type="string" nillable="true"/>
+                    <element name="XEd50utm" type="decimal" nillable="true"/>
+                    <element name="latEd50" type="decimal" nillable="true"/>
+                    <element name="calle" type="string" nillable="true"/>
+                    <element name="y2Ed50utm" type="decimal" nillable="true"/>
+                    <element name="bis" type="string" nillable="true"/>
+                    <element name="seccion" type="string" nillable="true"/>
+                    <element name="nomedificio" type="string" nillable="true"/>
+                    <element name="cod3d" type="decimal" nillable="true"/>
+                    <element name="ZEd50" type="decimal" nillable="true"/>
+                    <element name="muni" type="string" nillable="true"/>
+                    <element name="numero" type="string" nillable="true"/>
+                    <element name="url2d" type="string" nillable="true"/>
+                    <element name="codcalle" type="string" nillable="true"/>
+                    <element name="distrito" type="string" nillable="true"/>
+                    <element name="latWgs84" type="decimal" nillable="true"/>
+                    <element name="urlGoogle" type="string" nillable="true"/>
+                    <element name="codpostal" type="string" nillable="true"/>
+                    <element name="lonEd50" type="decimal" nillable="true"/>
+                </sequence>
+            </complexType>
+            <element name="buscarcallejeroElement" type="tns:buscarcallejero"/>
+            <element name="buscarcallejeroResponseElement" type="tns:buscarcallejeroResponse"/>
+        </schema>
+    </types>
+    <message name="Callejero_buscarcallejero">
+        <part name="parameters" element="tns:buscarcallejeroElement"/>
+    </message>
+    <message name="Callejero_buscarcallejeroResponse">
+        <part name="parameters" element="tns:buscarcallejeroResponseElement"/>
+    </message>
+    <portType name="Callejero">
+        <operation name="buscarcallejero">
+            <input message="tns:Callejero_buscarcallejero"/>
+            <output message="tns:Callejero_buscarcallejeroResponse"/>
+        </operation>
+    </portType>
+    <binding name="CallejeroSoapHttp" type="tns:Callejero">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="buscarcallejero">
+            <soap:operation soapAction="http://dfgweb/Callejero.wsdl/buscarcallejero"/>
+            <input>
+                <soap:body use="literal" parts="parameters"/>
+            </input>
+            <output>
+                <soap:body use="literal" parts="parameters"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="Callejero">
+        <port name="CallejeroSoapHttpPort" binding="tns:CallejeroSoapHttp">
+            <soap:address location="http://b5m.gipuzkoa.net/ws/dfg-callejero-context-root/CallejeroSoapHttpPort"/>
+        </port>
+    </service>
+</definitions>
